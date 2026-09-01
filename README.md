@@ -73,7 +73,7 @@ adb uninstall com.jj.jcdfpandrapp
 adb install WhorlKit-signed.apk
 
 # 启动 App
-adb shell monkey -p com.jj.jcdfpandrapp -c android.intent.category.LAUNCHER 1
+adb shell am start -n com.jj.jcdfpandrapp/.MainActivity
 ```
 
 **iOS 安装**（模拟器免签直装，解压 IPA 后）：
@@ -106,7 +106,7 @@ xcrun simctl spawn booted log show --last 5m --predicate 'eventMessage CONTAINS 
 
 ```
 # Android（logcat）
-fkdxjz: device fingerprints: 6 items (tag=fkdxjz)
+fkdxjz: device fingerprints: 11 items (tag=fkdxjz)
 fkdxjz: #1: 6tSvbDdvakkracUY8DEY6DVG5cqw8ddr...
 fkdxjz: #2: fOej8XWEIFrfhW6G/OIzi0MzdExcegkZ...
 
