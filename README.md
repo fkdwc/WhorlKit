@@ -36,7 +36,7 @@
 ## 公开版本的一些说明
 
 - **完全离线**：不联网、不上传、无云端记录——测试时你的任何数据都不会离开设备，可以放心随便测；
-- 输出是**密文串**，不直接暴露设备的原始信息；
+- 输出是**定长哈希串**，不直接暴露设备的原始信息；
 - 没有云端参与，测的就是端上这部分，表现好不好当场就能看到；
 - 采集行为可以 trace——**欢迎大家跟一遍看它到底采集了哪些信息**。
 
@@ -102,17 +102,17 @@ xcrun simctl launch booted com.sjc.JcDfpIosApp
 xcrun simctl spawn booted log show --last 5m --predicate 'eventMessage CONTAINS "fkdxjz"'
 ```
 
-输出形如（Android 与 iOS 的前缀格式略有差异）：
+输出形如（每项为定长哈希串，Android 与 iOS 的前缀格式略有差异）：
 
 ```
 # Android（logcat）
 fkdxjz: device fingerprints: 11 items (tag=fkdxjz)
-fkdxjz: #1: 6tSvbDdvakkracUY8DEY6DVG5cqw8ddr...
-fkdxjz: #2: fOej8XWEIFrfhW6G/OIzi0MzdExcegkZ...
+fkdxjz: #1: ir1oFfox3yEnLiNAnGLiVuxqRS23KSTe0VU1bHoiiId
+fkdxjz: #2: 6s66xVjK5TL+g5f6LZ2ECuGLV79NsZsLolMtcaB5wpA
 
 # iOS（模拟器 unified log）
 [fkdxjz] device fingerprints: 9 items
-[fkdxjz] #1: 6tSvbDdvakkracUY8DEY6DVG5cqw8ddr...
+[fkdxjz] #1: EJuXLKMajtdgS2wr5F1JhB3WkzCypNqX9mOvEoR8Znk
 ```
 
 两个实测小提醒（我在模拟器上跑出来的现象，供参考）：
@@ -171,7 +171,7 @@ fkdxjz: #2: fOej8XWEIFrfhW6G/OIzi0MzdExcegkZ...
 A：主要是为了数据安全——这个版本不联网、不上传，测试的时候不用担心你的任何数据被收集，可以放心随便折腾。另外完整版是联网的，带降级预案等工程稳定性手段；公开的离线版去掉了联网部分，只保留端上采集计算这块。
 
 **Q：指纹串能看到我设备的什么信息？**
-A：输出是密文串，不直接暴露设备原始信息。你只需要关心它"变没变"、"和别的设备是否相同"。
+A：输出是定长哈希串，不直接暴露设备原始信息。你只需要关心它"变没变"、"和别的设备是否相同"。
 
 **Q：我怎么知道它到底采集了我设备的哪些信息？**
 A：欢迎 trace。这个版本完全离线，用各种手段和工具跟一遍系统调用和 API 行为，就能看到它读了哪些信息——采了什么可以自己看，不用猜。
