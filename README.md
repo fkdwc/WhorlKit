@@ -68,12 +68,12 @@ apksigner sign --ks whorlkit.jks --out WhorlKit-signed.apk WhorlKit-aligned.apk
 apksigner verify WhorlKit-signed.apk
 
 # 如果设备上装过别的签名的旧版本，先卸载，否则会报 INSTALL_FAILED_UPDATE_INCOMPATIBLE
-adb uninstall com.jj.jcdfpandrapp
+adb uninstall com.jb.whorlkit
 
 adb install WhorlKit-signed.apk
 
 # 启动 App
-adb shell am start -n com.jj.jcdfpandrapp/.MainActivity
+adb shell am start -n com.jb.whorlkit/.MainActivity
 ```
 
 **iOS 安装**（模拟器免签直装，解压 IPA 后）：
@@ -98,7 +98,7 @@ xcrun simctl install booted Payload/MpsDfpIosApp.app
 adb logcat -s fkdxjz
 
 # iOS 模拟器
-xcrun simctl launch booted com.sjc.JcDfpIosApp
+xcrun simctl launch booted com.jb.whorlkit
 xcrun simctl spawn booted log show --last 5m --predicate 'eventMessage CONTAINS "fkdxjz"'
 ```
 
