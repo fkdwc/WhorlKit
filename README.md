@@ -1,8 +1,8 @@
-# WhorlKit：写了个设备指纹的小东西，欢迎大家来测试、交流
+# WhorlKit · 完全离线的设备指纹
 
 > Whorl /wɜːrl/，指纹的"涡纹"。
-> 个人写的设备指纹库，为每台设备产出一组完全离线计算的指纹串。
-> 放出来是想请大家帮忙测一测、对比对比，也欢迎攻击修改它的设备指纹，欢迎交流。
+> WhorlKit 为每一台设备产出一组完全离线计算的指纹串——不联网、不上传，结果公开呈现、可自行验证。
+> 欢迎测试、对比与交流。
 >
 > 仓库地址：**https://github.com/fkdwc/WhorlKit**
 
@@ -92,7 +92,18 @@ adb shell am start -n com.jb.whorlkit/.MainActivity
 xcrun simctl install booted Payload/MpsDfpIosApp.app
 ```
 
-真机使用需拥有 Apple 开发者资格者用自有证书与描述文件重签。
+**iOS 真机自签（可选）**——真机没有免签路径（Apple 机制所限，签名必须绑定你自己的账号），自己签一下即可：
+
+- **爱思助手（图形界面，最省事）**：手机连线 → 「工具箱 → IPA 签名」→ 导入 `WhorlKit-1.0.0.ipa` → 登录你的 Apple ID（免费账号即可，建议同时把 Bundle ID 改成自己独有的，如 `com.yourname.whorlkit`，避免与他人冲突）→ 开始签名 → 安装 → 手机「设置 → 通用 → VPN与设备管理」中信任对应证书；
+- **命令行（zsign）**：
+
+```bash
+# 证书 p12 与描述文件来自你自己的开发者账号 / 个人团队
+zsign -c cert.p12 -p profile.mobileprovision -o WhorlKit-signed.ipa WhorlKit-1.0.0.ipa
+```
+
+- 免费个人证书 **7 天过期**，到期重签一次即可；付费开发者证书一年有效；
+- 没有 Mac / 不想折腾的测试者：直接用 Android 版，判定口径双端一致。
 
 ### 2. 看指纹
 
