@@ -48,10 +48,20 @@
 
 | 文件 | 平台 | 说明 |
 |---|---|---|
-| `WhorlKit-1.0.0.apk` | Android | Release 加固版（arm64-v8a），**未签名**，签名后安装 |
+| `WhorlKit-1.0.0-signed.apk` | Android | Release 加固版（arm64-v8a），**已签名**，直接安装 |
+| `WhorlKit-1.0.0.apk` | Android | 同上，**未签名**（想用自有密钥签名时用这个） |
 | `WhorlKit-1.0.0.ipa` | iOS | Release 加固版，模拟器切片（arm64），**无签名**，模拟器可直接安装 |
 
-**Android 签名安装**（APK 未签名，需用自有密钥签一下）：
+**Android 直接安装**（推荐，什么都不用配）：
+
+```bash
+adb install WhorlKit-1.0.0-signed.apk
+adb shell am start -n com.jb.whorlkit/.MainActivity
+```
+
+手机上更简单：浏览器下载 `WhorlKit-1.0.0-signed.apk` → 直接点开安装（允许"未知来源"一次即可），不需要电脑。
+
+**Android 自有密钥签名安装**（可选，用未签名版）：
 
 ```bash
 # zipalign/apksigner 一般不在 PATH 里，先加一下（版本号按本机 build-tools 实际调整）
