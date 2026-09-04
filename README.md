@@ -81,20 +81,18 @@ xcrun simctl launch booted com.jb.whorlkit
 xcrun simctl spawn booted log show --last 5m --predicate 'eventMessage CONTAINS "fkdxjz"'
 ```
 
-输出形如（每项为 43 字符定长哈希）：
+输出形如（每项为定长哈希串，项数与内容以你的设备实际输出为准）：
 
 ```
 # Android（logcat）
-fkdxjz: device fingerprints: 11 items (tag=fkdxjz)
-fkdxjz: #1: ir1oFfox3yEnLiNAnGLiVuxqRS23KSTe0VU1bHoiiId
-fkdxjz: #2: 6s66xVjK5TL+g5f6LZ2ECuGLV79NsZsLolMtcaB5wpA
+fkdxjz: device fingerprints: N items (tag=fkdxjz)
+fkdxjz: #1: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+fkdxjz: #2: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 # iOS（unified log）
-[fkdxjz] device fingerprints: 9 items
-[fkdxjz] #1: EJuXLKMajtdgS2wr5F1JhB3WkzCypNqX9mOvEoR8Znk
+[fkdxjz] device fingerprints: N items
+[fkdxjz] #1: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
-
-> 实测提示：卸载重装后预埋随机标识项会重新生成、其余不变（按口径指纹未变）；不同设备项数可能不同（Android 模拟器 11 项、iOS 9 项），同一设备项数稳定——对比前先「重新采集」。
 
 ### 测试流程
 
