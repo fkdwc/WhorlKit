@@ -1,17 +1,30 @@
-# WhorlKit · 完全离线的设备指纹
+<p align="center">
+  <img src="docs/banner.png" width="100%" alt="WhorlKit"/>
+</p>
 
-> Whorl /wɜːrl/，指纹的"涡纹"。
-> 为每台设备产出一组完全离线计算的指纹串——不联网、不上传，结果可自行验证。
->
-> **https://github.com/fkdwc/WhorlKit**
+<h1 align="center">完全离线的设备指纹</h1>
+
+<p align="center">
+  <b>不联网 · 不上传 · 结果可自行验证</b><br/>
+  个人项目放出来只有一个目的：<b>请大家来测试</b>——稳定性、唯一性、trace 采集行为，怎么测都欢迎。<br/>
+  测出问题很正常，那正是最有价值的反馈。
+</p>
+
+<p align="center">
+  <a href="#-安装">安装</a> ·
+  <a href="#-看指纹">看指纹</a> ·
+  <a href="#-测试流程">测试流程</a> ·
+  <a href="#-可以试的方向">测试方向</a> ·
+  <a href="#-交流">交流</a>
+</p>
+
+---
 
 <p align="center">
   <img src="docs/ios.png" width="280" alt="iOS"/>
 </p>
 
-个人项目放出来只有一个目的：**请大家来测试**——稳定性、唯一性、trace 采集行为，怎么测都欢迎。测出问题很正常，那正是最有价值的反馈。
-
-## 设计目标
+## 🎯 设计目标
 
 | # | 目标 | 什么情况说明未达成 |
 |---|---|---|
@@ -20,9 +33,7 @@
 
 **判定口径**：每台设备 N 项指纹，`#` 编号固定，编号相同即同一项；**任一项未变即指纹未变**，全部项变化才视为设备变化；一切计算在本机完成，无云端参与。
 
-## 使用
-
-### 安装
+## 📦 安装
 
 | 文件 | 平台 | 说明 |
 |---|---|---|
@@ -66,7 +77,7 @@ xcrun simctl install booted Payload/MpsDfpIosApp.app
 - zsign：`zsign -c cert.p12 -p profile.mobileprovision -o signed.ipa WhorlKit-1.0.0.ipa`；
 - 免费证书 7 天过期，重签即可。无 Mac 可用 Android 版，判定口径双端一致。
 
-### 看指纹
+## 🔍 看指纹
 
 - **界面**：首页逐项展示。「重新采集」重跑采集链；「一键复制」复制全部；长按单项可单独复制；
 - **日志**（每次采集自动输出，tag = `fkdxjz`）：
@@ -93,7 +104,7 @@ fkdxjz: #2: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 [fkdxjz] #1: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-### 测试流程
+## 🧪 测试流程
 
 ```
 记录基线（一键复制 / 日志） → 执行测试（hook / 伪造 / 克隆 / 刷机…） → 重新采集 → 逐项对比
@@ -101,7 +112,7 @@ fkdxjz: #2: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 多设备对比同理：各取一份指纹，逐编号比对是否完全一致。
 
-## 可以试的方向
+## ⚔️ 可以试的方向
 
 - **Hook / 注入**：frida、xposed 等，hook 采集函数、篡改返回值；
 - **Trace**：strace、frida-trace 跟采集行为，还原完整采集清单；
@@ -112,7 +123,7 @@ fkdxjz: #2: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 测出问题或有想法，欢迎[提 Issue](https://github.com/fkdwc/WhorlKit/issues)：附设备 / 系统版本、复现步骤、测试前后两份指纹日志。
 
-## 交流
+## 💬 交流
 
 做设备指纹相关的测试、评估、研究，欢迎联系（个人行为）：
 
@@ -122,19 +133,29 @@ fkdxjz: #2: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 仓库为**离线测试版**；完整版 SDK 联网，含降级预案等工程稳定性手段，适合业务接入。联系方式：公众号私信 / 留言。
 
-## FAQ
+## ❓ FAQ
 
-**为什么不联网？** 数据安全——测试不产生任何上传。完整版联网并含降级预案等稳定性手段，离线版只保留端上采集计算。
+<details>
+<summary><b>为什么不联网？</b></summary>
+数据安全——测试不产生任何上传。完整版联网并含降级预案等稳定性手段，离线版只保留端上采集计算。
+</details>
 
-**指纹串能看出设备信息吗？** 定长哈希串，不暴露原始信息，只需关心"变没变"与"是否相同"。
+<details>
+<summary><b>指纹串能看出设备信息吗？</b></summary>
+定长哈希串，不暴露原始信息，只需关心"变没变"与"是否相同"。
+</details>
 
-**怎么知道它采集了什么？** 完全离线，自行 trace 系统调用与 API 即可完整还原采集清单。
+<details>
+<summary><b>怎么知道它采集了什么？</b></summary>
+完全离线，自行 trace 系统调用与 API 即可完整还原采集清单。
+</details>
 
-**改了一部分项，算改掉指纹了吗？** 不算：任一项未变即指纹未变；两台设备所有项一致才算重复。
+<details>
+<summary><b>改了一部分项，算改掉指纹了吗？</b></summary>
+不算：任一项未变即指纹未变；两台设备所有项一致才算重复。
+</details>
 
-**能和其他方案对比吗？** 欢迎，同机同流程各自记录，欢迎分享对比数据。
-
-## 版本
+## 📌 版本
 
 | 版本 | 日期 | 说明 |
 |---|---|---|
