@@ -6,8 +6,7 @@
 > **https://github.com/fkdwc/WhorlKit**
 
 <p align="center">
-  <img src="docs/android.png" width="260" alt="Android"/>
-  <img src="docs/ios.png" width="260" alt="iOS"/>
+  <img src="docs/ios.png" width="280" alt="iOS"/>
 </p>
 
 个人项目放出来只有一个目的：**请大家来测试**——稳定性、唯一性、trace 采集行为，怎么测都欢迎。测出问题很正常，那正是最有价值的反馈。
